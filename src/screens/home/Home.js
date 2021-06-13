@@ -1,10 +1,12 @@
 import React from 'react';
 import './Home.css';
 import Header from '../../common/header/Header';
+
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+
 import moviesData from '../../common/moviesData';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +27,18 @@ const useStyles = makeStyles((theme) => ({
   titleBar: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
+
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+
 }));
 
 function SingleLineGridList() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={6}>
+    <GridList cellHeight={250} className={classes.gridList} cols={6}>
         {moviesData.map((tile) => (
           <GridListTile key={tile.id}>
             <img src={tile.poster_url} alt={tile.title} />
@@ -50,6 +57,32 @@ function SingleLineGridList() {
 }
 
 
+
+const url='';
+function TitlebarGridList() {
+  return (
+    <div className='root'>
+      <GridList cellHeight={350} className='gridList2' cols={4}>
+        {moviesData.map((tile) => (
+          <GridListTile key={tile.id}>
+            <a href={url}>
+              <img src={tile.poster_url} alt={tile.title} />
+            </a>
+            <GridListTileBar
+              title={tile.title}
+              subtitle={<span>Release Date: {tile.release_date.substring(0,10)}</span>}
+            />
+          </GridListTile>
+        ))}
+      </GridList>
+    </div>
+  );
+}
+
+
+
+
+
 class Home extends React.Component{
     render(){
         return(
@@ -63,6 +96,14 @@ class Home extends React.Component{
 
            <div className='list-div'>
               <SingleLineGridList />
+            </div>
+            <div className="flec-container">
+                <div className="left">
+                <TitlebarGridList />
+                </div>
+                <div className='form-div'>
+                we will have a form here
+                </div>
             </div>
 
            </>
