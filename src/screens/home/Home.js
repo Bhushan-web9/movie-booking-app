@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import "./Home.css";
 import { withStyles } from '@material-ui/core/styles';
@@ -21,7 +21,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import artists from "../../common/artists";
 import genres from '../../common/genre';
-
+import Details from '../details/Details.js';
 
 
 const styles = theme => ({
@@ -44,7 +44,7 @@ const styles = theme => ({
       transform: 'translateZ(0)',
       cursor: 'pointer',
       margin:'0%'
-
+      
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -92,9 +92,9 @@ releaseDateEndHandler = event => {
   this.setState({ releaseDateEnd: event.target.value });
 }
 
-/*movieClickHandler = (movieId) => {
+movieClickHandler = (movieId) => {
   ReactDOM.render(<Details movieId={movieId} />, document.getElementById('root'));
-}*/
+}
 
 
   render() {
@@ -105,7 +105,7 @@ releaseDateEndHandler = event => {
     if(this.state.movieName.length ===0  && this.state.artists.length === 0){
       filterMovie=moviesData;
     }
-
+    
 
     return (
       <div>
@@ -131,7 +131,8 @@ releaseDateEndHandler = event => {
             <div className="left">
             <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
               {filterMovie.map((movie) => (
-                <GridListTile  
+                <GridListTile  onClick={() => this.movieClickHandler(movie.id)} className="released-movie-grid-item"
+                key={"grid" + movie.id}
                 >
                   <img
                     src={movie.poster_url}
@@ -210,7 +211,7 @@ releaseDateEndHandler = event => {
                                         type="date"
                                         defaultValue=""
                                         InputLabelProps={{ shrink: true }}
-
+                                       
                                     />
                                 </FormControl>
 
@@ -221,13 +222,13 @@ releaseDateEndHandler = event => {
                                         type="date"
                                         defaultValue=""
                                         InputLabelProps={{ shrink: true }}
-
+                                        
                                     />
                                 </FormControl>
                                 <br /><br />
                                 <FormControl className={classes.formControl}>
                                     <Button  variant="contained" color="primary">
-
+                                      
                                         APPLY
                                     </Button>
                                 </FormControl>
